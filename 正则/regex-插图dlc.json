@@ -1,0 +1,17 @@
+{
+    "id": "6cbd9eb3-d91e-49db-8cfb-a53739dbc314",
+    "scriptName": "插图DLC",
+    "disabled": false,
+    "runOnEdit": true,
+    "findRegex": "/<(?:illustration|img)>.*[^A-Za-z0-9\\.\\s<\\/>]+(.*?)<\\/(?:illustration|img)>/g",
+    "replaceString": "<center><img src=https://files.catbox.moe/$1 width=50% /></center>",
+    "trimStrings": [],
+    "placement": [
+        2
+    ],
+    "substituteRegex": 0,
+    "minDepth": null,
+    "maxDepth": null,
+    "markdownOnly": true,
+    "promptOnly": false
+}

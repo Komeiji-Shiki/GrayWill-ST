@@ -1,0 +1,17 @@
+{
+    "id": "d5e36ac6-64d4-4c0f-9b51-a7f2f38ef184",
+    "scriptName": "删除五楼前平行事件",
+    "findRegex": "<DBE_Tracking_System>[\\s\\S]*?</DBE_Tracking_System>",
+    "replaceString": "",
+    "trimStrings": [],
+    "placement": [
+        2
+    ],
+    "disabled": true,
+    "markdownOnly": true,
+    "promptOnly": true,
+    "runOnEdit": true,
+    "substituteRegex": 0,
+    "minDepth": 5,
+    "maxDepth": null
+}

@@ -1,0 +1,18 @@
+{
+    "id": "c96f25d1-76d2-487e-865e-5eca18da125e",
+    "scriptName": "-删除",
+    "findRegex": "/(?<=\\S)-(?=\\S)/gs",
+    "replaceString": "",
+    "trimStrings": [],
+    "placement": [
+        2,
+        6
+    ],
+    "disabled": false,
+    "markdownOnly": true,
+    "promptOnly": true,
+    "runOnEdit": true,
+    "substituteRegex": 0,
+    "minDepth": null,
+    "maxDepth": null
+}
