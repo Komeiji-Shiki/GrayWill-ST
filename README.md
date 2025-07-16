@@ -21,11 +21,10 @@
 ### 3. 酒馆助手脚本
 - 一些用于增强 SillyTavern 功能的脚本。
 
-### 4. 预设 (Presets & World Info)
-存放在 \`预设/\` 目录。
+### 4. 预设
 
 
 
-## 贡献与反馈 (Contributing and Feedback)
+## 贡献与反馈
 
 如果你有任何建议、发现了 Bug，或者想分享你的改进，欢迎提交 Issue 或 Pull Request。
