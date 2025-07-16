@@ -1,0 +1,17 @@
+{
+    "id": "848e1cee-b665-486f-9303-a59b16cd9b0f",
+    "scriptName": "混淆04",
+    "disabled": true,
+    "runOnEdit": true,
+    "findRegex": "/\\<\\/i>/gm",
+    "replaceString": "",
+    "trimStrings": [],
+    "placement": [
+        2
+    ],
+    "substituteRegex": 0,
+    "minDepth": null,
+    "maxDepth": null,
+    "markdownOnly": false,
+    "promptOnly": false
+}
