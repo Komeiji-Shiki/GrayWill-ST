@@ -1,0 +1,17 @@
+{
+    "id": "7705496d-7417-4e1b-86e5-59e1c068d5f7",
+    "scriptName": "隐藏攻击",
+    "findRegex": "/<attack>.*?(?:<\\/attack>|$)/gs",
+    "replaceString": "",
+    "trimStrings": [],
+    "placement": [
+        2
+    ],
+    "disabled": false,
+    "markdownOnly": true,
+    "promptOnly": false,
+    "runOnEdit": true,
+    "substituteRegex": 0,
+    "minDepth": null,
+    "maxDepth": null
+}

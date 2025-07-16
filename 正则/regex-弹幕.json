@@ -1,0 +1,17 @@
+{
+    "id": "9466afad-f958-4df6-9475-7ade030ed937",
+    "scriptName": "弹幕",
+    "disabled": false,
+    "runOnEdit": true,
+    "findRegex": "/·、/g",
+    "replaceString": " 　 ",
+    "trimStrings": [],
+    "placement": [
+        2
+    ],
+    "substituteRegex": 0,
+    "minDepth": null,
+    "maxDepth": null,
+    "markdownOnly": true,
+    "promptOnly": false
+}

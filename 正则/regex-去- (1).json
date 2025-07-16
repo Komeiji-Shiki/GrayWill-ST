@@ -1,0 +1,18 @@
+{
+    "id": "c8fa8e60-db4b-465b-ba4f-c9664639c8dd",
+    "scriptName": "去-",
+    "findRegex": "/(?<=[\\u4e00-\\u9fa5\\u3400-\\u4DBF\\uF900-\\uFAFF])-(?=[\\u4e00-\\u9fa5\\u3400-\\u4DBF\\uF900-\\uFAFF])/gs",
+    "replaceString": "",
+    "trimStrings": [],
+    "placement": [
+        1,
+        2
+    ],
+    "disabled": true,
+    "markdownOnly": false,
+    "promptOnly": false,
+    "runOnEdit": true,
+    "substituteRegex": 0,
+    "minDepth": null,
+    "maxDepth": null
+}
