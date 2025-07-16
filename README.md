@@ -1,4 +1,4 @@
-# GrayWill-ST-Mods
+# GrayWill-ST
 
 我的 SillyTavern 相关内容仓库。
 
