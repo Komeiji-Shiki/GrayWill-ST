@@ -1,0 +1,17 @@
+{
+    "id": "7bc1ea3c-d905-4bb7-bf82-48b30d3a55c5",
+    "scriptName": "删()",
+    "disabled": true,
+    "runOnEdit": true,
+    "findRegex": "/\\((.*?)\\)/gs",
+    "replaceString": "$1",
+    "trimStrings": [],
+    "placement": [
+        2
+    ],
+    "substituteRegex": 0,
+    "minDepth": null,
+    "maxDepth": null,
+    "markdownOnly": true,
+    "promptOnly": true
+}

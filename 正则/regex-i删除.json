@@ -1,0 +1,17 @@
+{
+    "id": "397c5b5f-c03b-4667-8e7c-9bdc1687e1fc",
+    "scriptName": "i删除",
+    "disabled": true,
+    "runOnEdit": true,
+    "findRegex": "/(?<=\\S)i(?=\\S)/gs",
+    "replaceString": "",
+    "trimStrings": [],
+    "placement": [
+        2
+    ],
+    "substituteRegex": 0,
+    "minDepth": null,
+    "maxDepth": null,
+    "markdownOnly": true,
+    "promptOnly": true
+}
