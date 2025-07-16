@@ -53,13 +53,13 @@
 - 其他的自己看着改就好（
 
 ### 预设教程
-魔改预设的话新建一个放着你的要求的扔到<order></order>里面就可以
+魔改预设的话新建一个放着你的要求的扔到`<order></order>`里面就可以
 
 本预设推荐使用酒馆自动解析思思维链：
 1. 找到酒馆里长得像A标志的按钮
 2. 打开自动解析
 3. 新建一个解析规则
-4. 把标签改为 <thinking> 和 </thinking>
+4. 把标签改为 `<thinking>` 和 `</thinking>`
 如图：![image](https://github.com/Komeiji-Shiki/GrayWill-ST/blob/main/%E6%9D%82%E9%A1%B9/a33760a0-3980-4ccc-b579-fa9eb9ce3a38.png)
 ![image](https://github.com/Komeiji-Shiki/GrayWill-ST/blob/main/%E6%9D%82%E9%A1%B9/a33760a0-3980-4ccc-b579-fa9eb9ce3a38.png)
 
