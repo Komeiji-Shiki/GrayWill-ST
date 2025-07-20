@@ -64,7 +64,7 @@
 3. 新建一个解析规则
 4. 把标签改为 `<thinking>` 和 `</thinking>`
 如图：![image](https://github.com/Komeiji-Shiki/GrayWill-ST/blob/main/%E6%9D%82%E9%A1%B9/a33760a0-3980-4ccc-b579-fa9eb9ce3a38.png)
-![image](https://github.com/Komeiji-Shiki/GrayWill-ST/blob/main/%E6%9D%82%E9%A1%B9/a33760a0-3980-4ccc-b579-fa9eb9ce3a38.png)
+![image](https://github.com/Komeiji-Shiki/GrayWill-ST/blob/main/%E6%9D%82%E9%A1%B9/6304485f-666c-4b06-a88c-f0e48f43f984.png)
 
 ### 更新日志
 0.1.4：
