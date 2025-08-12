@@ -1,0 +1,17 @@
+{
+    "id": "290bc28e-ed6e-4c79-aab1-917b76082e74",
+    "scriptName": "不是而是",
+    "disabled": true,
+    "runOnEdit": true,
+    "findRegex": "/(?:不是|并非|非但|不像|没有|并未).*?[\\s,，]*(?:而是|反而|只有|更像|只是)\\s*/gm",
+    "replaceString": "",
+    "trimStrings": [],
+    "placement": [
+        2
+    ],
+    "substituteRegex": 0,
+    "minDepth": null,
+    "maxDepth": null,
+    "markdownOnly": true,
+    "promptOnly": true
+}
