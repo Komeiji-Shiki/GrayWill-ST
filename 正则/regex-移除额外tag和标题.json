@@ -1,0 +1,17 @@
+{
+    "id": "4b961a85-5d8a-4691-8e14-038cc7e37581",
+    "scriptName": "移除额外tag和标题",
+    "findRegex": "/^[\\s\\S]*(### 正文|<\\/preparation>)|(<!--[\\s\\S]*?-->\\s?)|<content>\\s*##[\\s\\S]*?---/g",
+    "replaceString": "",
+    "trimStrings": [],
+    "placement": [
+        2
+    ],
+    "disabled": false,
+    "markdownOnly": true,
+    "promptOnly": true,
+    "runOnEdit": true,
+    "substituteRegex": 0,
+    "minDepth": null,
+    "maxDepth": null
+}
