@@ -1,0 +1,335 @@
+/* Jellyfin 美化整合方案 v5.1（优化稳定版）
+   - 集中变量，一处换色/换图
+   - 降低 !important 使用，减少与 JellySkin 冲突
+   - 玻璃化支持 @supports 降级
+   - 控制台滚动 fix 更收敛
+   - 增强可访问性与小屏适配
+*/
+
+/* 0) 建议固定 JellySkin 版本，避免 @latest 带来突发变更（把 @latest 换成具体版本号即可） */
+@import url("https://cdn.jsdelivr.net/npm/jellyskin-sc@12.5.1dist/main.css");
+@import url("https://cdn.jsdelivr.net/npm/jellyskin-sc@12.5.1/dist/logo.css");
+
+/* 1) 主题变量：颜色、图像、玻璃化参数 */
+:root{
+  /* 品牌色（蓝 -> 猩红 渐变） */
+  --accent1-light:#3a7bd5;
+  --accent1-dark:#0d1b2a;
+  --accent2-light:#b20a2c;
+  --accent2-dark:#2a0d1b;
+  --accent-gradient:linear-gradient(135deg,var(--accent1-light) 0%,var(--accent2-light) 100%);
+
+  /* 一处替换背景和 Logo */
+  --app-bg:url('https://raw.githubusercontent.com/Komeiji-Shiki/GrayWill-ST/main/%E6%9D%82%E9%A1%B9/75578060_p0.jpg');
+  --app-logo:url('https://raw.githubusercontent.com/Komeiji-Shiki/GrayWill-ST/main/%E6%9D%82%E9%A1%B9/2.gif');
+
+  /* 玻璃化与细节参数 */
+  --glass-bg:rgba(20,20,20,.45);
+  --glass-hover-bg:rgba(45,45,45,.65);
+  --glass-border-color:rgba(255,255,255,.14);
+  --glass-border-hover:rgba(255,255,255,.28);
+  --glass-blur:12px;
+  --radius-m:10px;
+
+  --cover-dim:.78;
+  --cover-dim-hover:1;
+  --text-shadow-soft:0 2px 10px rgba(0,0,0,.6);
+}
+
+/* 2) 全局背景用伪元素，避免干扰 Jellyfin 自带容器与滚动 */
+html,body{height:100%;}
+body{
+  color:#fff;
+  text-shadow:var(--text-shadow-soft);
+  background:#0b0f14; /* 图片未加载时防闪白 */
+  isolation:isolate;  /* 保证 ::before/::after 分层 */
+}
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background-image:var(--app-bg);
+  background-size:cover; background-position:center; background-repeat:no-repeat;
+  z-index:-2; transform:translateZ(0);
+}
+body::after{
+  content:"";
+  position:fixed; inset:0;
+  /* 半透明遮罩 + 轻微径向高光，保证对比度 */
+  background:
+    radial-gradient(60% 50% at 85% 10%, rgba(255,255,255,.05), transparent 40%),
+    rgba(0,0,0,.5);
+  z-index:-1; pointer-events:none;
+}
+/* 支持毛玻璃时，给全局蒙层做轻微模糊 */
+@supports (backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px)){
+  body::after{
+    backdrop-filter:blur(2px);
+    -webkit-backdrop-filter:blur(2px);
+  }
+}
+
+/* 3) 顶部 Logo（统一两处选择器） */
+.pageTitleWithDefaultLogo,
+.headerButton.logo{
+  background-image:var(--app-logo);
+  background-size:contain;
+  background-repeat:no-repeat;
+  background-position:left center;
+}
+.pageTitleWithDefaultLogo{
+  font-size:0; width:250px; height:60px;
+}
+.headerButton.logo{ background-position:center left; }
+.headerButton.logo .headerButton-icon{ display:none; }
+
+/* 4) Jellyfin 背景容器略压暗（与全局背景不冲突） */
+.backgroundContainer{ background-color:rgba(0,0,0,.45); }
+
+/* 5) 卡片：玻璃化 + 暗封面 + 平滑过渡 */
+.cardBox{
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border-color);
+  border-radius:var(--radius-m);
+  transition:transform .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
+  box-shadow:0 6px 20px rgba(0,0,0,.25);
+}
+@supports (backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px)){
+  .cardBox{
+    backdrop-filter:blur(var(--glass-blur));
+    -webkit-backdrop-filter:blur(var(--glass-blur));
+  }
+}
+.cardScalable .cardImageContainer{
+  filter:brightness(var(--cover-dim));
+  transition:filter .15s ease;
+}
+.card:hover .cardBox,
+.card:focus-visible .cardBox,
+.card.item-focus .cardBox{
+  background:var(--glass-hover-bg);
+  border-color:var(--glass-border-hover);
+  transform:translateY(-2px);
+}
+.card:hover .cardScalable .cardImageContainer,
+.card:focus-visible .cardScalable .cardImageContainer,
+.card.item-focus .cardScalable .cardImageContainer{
+  filter:brightness(var(--cover-dim-hover));
+}
+
+/* 6) 更清晰的键盘/遥控焦点 */
+.card:focus-visible .cardBox{
+  outline:2px solid var(--accent1-light);
+  outline-offset:2px;
+}
+
+/* 7) 按钮：玻璃化 + 渐变高光（低侵入） */
+.emby-button.raised[is=emby-button]:not(.emby-tab-button),
+.emby-button.raised[is=emby-linkbutton]:not(.emby-tab-button){
+  position:relative;
+  background:var(--glass-bg);
+  color:rgba(255,255,255,.92);
+  border:1px solid var(--glass-border-color);
+  border-radius:8px;
+  box-shadow:none;
+  transition:background-color .15s ease, border-color .15s ease, color .15s ease, transform .15s ease;
+}
+@supports (backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px)){
+  .emby-button.raised[is=emby-button]:not(.emby-tab-button),
+  .emby-button.raised[is=emby-linkbutton]:not(.emby-tab-button){
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+  }
+}
+.emby-button.raised[is=emby-button]:not(.emby-tab-button):hover,
+.emby-button.raised[is=emby-linkbutton]:not(.emby-tab-button):hover,
+.emby-button.raised[is=emby-button]:not(.emby-tab-button):focus-visible,
+.emby-button.raised[is=emby-linkbutton]:not(.emby-tab-button):focus-visible{
+  background:var(--glass-hover-bg);
+  border-color:var(--glass-border-hover);
+  color:#fff;
+  transform:translateY(-1px);
+}
+.emby-button.raised[is=emby-button]:not(.emby-tab-button)::after,
+.emby-button.raised[is=emby-linkbutton]:not(.emby-tab-button)::after{
+  content:"";
+  position:absolute; inset:0; pointer-events:none;
+  opacity:0; border-radius:inherit;
+  background:var(--accent-gradient);
+  mix-blend-mode:overlay;
+  transition:opacity .15s ease;
+}
+.emby-button.raised[is=emby-button]:not(.emby-tab-button):hover::after,
+.emby-button.raised[is=emby-linkbutton]:not(.emby-tab-button):hover::after,
+.emby-button.raised[is=emby-button]:not(.emby-tab-button):focus-visible::after,
+.emby-button.raised[is=emby-linkbutton]:not(.emby-tab-button):focus-visible::after{
+  opacity:.8;
+}
+
+/* 8) 仪表盘滚动遮挡修复（收敛范围，避免全局 overflow 影响） */
+body.dashboardDocument .mainAnimatedPages,
+body.dashboardDocument div[data-role="page"]{
+  -webkit-mask-image:none;
+  mask-image:none;
+  overflow:visible;
+  height:auto;
+}
+
+/* 9) 对话框/列表/输入统一玻璃化（可选） */
+.dialog,
+.paperList,
+.emby-select-withcolor .selectLabel,
+.inputContainer .textInput{
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border-color);
+  border-radius:var(--radius-m);
+}
+@supports (backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px)){
+  .dialog,
+  .paperList,
+  .emby-select-withcolor .selectLabel,
+  .inputContainer .textInput{
+    backdrop-filter:blur(var(--glass-blur));
+    -webkit-backdrop-filter:blur(var(--glass-blur));
+  }
+}
+
+/* 10) 可访问性：减少动态（跟随系统设置） */
+@media (prefers-reduced-motion:reduce){
+  .cardBox,.emby-button{ transition:none !important; transform:none !important; }
+}
+
+/* 11) 浅色模式补偿（如果系统切为浅色） */
+@media (prefers-color-scheme:light){
+  :root{
+    --glass-bg:rgba(255,255,255,.14);
+    --glass-hover-bg:rgba(255,255,255,.22);
+    --glass-border-color:rgba(255,255,255,.28);
+    --glass-border-hover:rgba(255,255,255,.45);
+  }
+  body{ color:#111; text-shadow:none; }
+}
+
+/* 12) 图片与小屏微调 */
+.cardImage,.listItemImage{ transition:opacity .25s ease, filter .15s ease; opacity:.98; }
+@media (max-width:600px){
+  .pageTitleWithDefaultLogo{ width:180px; height:44px; }
+  .cardBox{ border-radius:8px; }
+}
+/* 深色补丁 v5.2 – 更深的蓝黑/黑红 + 修复 hover 渐变发青 */
+
+:root{
+  /* 更靠近“近黑”的蓝黑与黑红 */
+  --accent1-light:#183149;   /* 深蓝 */
+  --accent1-dark:#050a0f;    /* 蓝黑近黑 */
+  --accent2-light:#5a0d16;   /* 暗猩红 */
+  --accent2-dark:#080305;    /* 黑红近黑 */
+  --accent-gradient:linear-gradient(135deg,var(--accent1-light),var(--accent2-light));
+
+  /* 中性文字色，避免偏青 */
+  --text-strong:#e6edf3;
+  --text-normal:#c9d1d9;
+  --text-muted:#9aa4af;
+
+  /* 分隔线与玻璃化（更深） */
+  --line-soft:rgba(255,255,255,.12);
+  --line-strong:rgba(255,255,255,.22);
+
+  --glass-bg:rgba(6,10,14,.72);
+  --glass-hover-bg:rgba(10,14,20,.86);
+  --glass-border-color:var(--line-soft);
+  --glass-border-hover:var(--line-strong);
+  --glass-blur:10px;
+
+  /* 封面更暗一些 */
+  --cover-dim:.66;
+  --cover-dim-hover:.92;
+
+  /* 按钮专用色（不再用叠加渐变） */
+  --btn-bg:rgba(8,12,18,.78);
+  --btn-hover-bg:rgba(12,16,24,.9);
+  --btn-active-bg:rgba(16,22,30,.95);
+  --btn-text:var(--text-strong);
+
+  /* 焦点环用钴蓝，不要刺眼电蓝 */
+  --focus-ring:#2e6db4;
+}
+
+/* 全局文字用中性白 */
+body{ color:var(--text-strong); }
+
+/* 背景遮罩更深一点 */
+.backgroundContainer{ background-color:rgba(0,0,0,.56); }
+
+/* 卡片更深 */
+.cardBox{ background:var(--glass-bg); }
+.card:hover .cardBox,
+.card:focus-visible .cardBox,
+.card.item-focus .cardBox{
+  background:var(--glass-hover-bg);
+}
+
+/* 封面暗度 */
+.cardScalable .cardImageContainer{ filter:brightness(var(--cover-dim)); }
+.card:hover .cardScalable .cardImageContainer,
+.card:focus-visible .cardScalable .cardImageContainer,
+.card.item-focus .cardScalable .cardImageContainer{
+  filter:brightness(var(--cover-dim-hover));
+}
+
+/* 按钮：取消渐变覆盖层，改为更深底色 + 细边框 + 阴影 */
+.emby-button.raised[is=emby-button]:not(.emby-tab-button),
+.emby-button.raised[is=emby-linkbutton]:not(.emby-tab-button){
+  background:var(--btn-bg) !important;
+  color:var(--btn-text) !important;
+  border:1px solid var(--glass-border-color) !important;
+  box-shadow:0 6px 14px rgba(0,0,0,.4) !important;
+}
+.emby-button.raised[is=emby-button]:not(.emby-tab-button):hover,
+.emby-button.raised[is=emby-linkbutton]:not(.emby-tab-button):hover,
+.emby-button.raised[is=emby-button]:not(.emby-tab-button):focus-visible,
+.emby-button.raised[is=emby-linkbutton]:not(.emby-tab-button):focus-visible{
+  background:var(--btn-hover-bg) !important;
+  border-color:var(--glass-border-hover) !important;
+  color:var(--text-strong) !important;
+  box-shadow:0 10px 22px rgba(0,0,0,.45) !important;
+}
+/* 彻底关掉之前的混合模式渐变，避免把文字染色 */
+.emby-button.raised[is=emby-button]:not(.emby-tab-button)::after,
+.emby-button.raised[is=emby-linkbutton]:not(.emby-tab-button)::after{
+  opacity:0 !important;
+  background:none !important;
+  mix-blend-mode:normal !important;
+}
+
+/* 焦点态统一，别太抢戏 */
+.card:focus-visible .cardBox{ outline:2px solid var(--focus-ring); outline-offset:2px; }
+.emby-button.raised[is=emby-button]:not(.emby-tab-button):focus-visible,
+.emby-button.raised[is=emby-linkbutton]:not(.emby-tab-button):focus-visible{
+  outline:2px solid var(--focus-ring); outline-offset:2px;
+}
+
+/* 文本颜色更中性，避免偏青的高饱和 */
+.headerButton, .emby-button, .emby-button .emby-button-foreground{ color:var(--text-normal); }
+.emby-button:hover .emby-button-foreground{ color:var(--text-strong); }
+/* 可选：只做渐变描边，不染内部文字 */
+.emby-button.raised[is=emby-button]:not(.emby-tab-button),
+.emby-button.raised[is=emby-linkbutton]:not(.emby-tab-button){ position:relative; z-index:0; }
+.emby-button.raised[is=emby-button]:not(.emby-tab-button)::before,
+.emby-button.raised[is=emby-linkbutton]:not(.emby-tab-button)::before{
+  content:"";
+  position:absolute; inset:0; border-radius:inherit; z-index:-1;
+  padding:1px; background:var(--accent-gradient); opacity:.45;
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude; /* 只显示边框环 */
+  transition:opacity .15s ease;
+}
+.emby-button.raised[is=emby-button]:not(.emby-tab-button):hover::before,
+.emby-button.raised[is=emby-linkbutton]:not(.emby-tab-button):hover::before{
+  opacity:.8;
+}
+
+/* --- 10. 【追加】自定义登录页背景图 --- */
+/* 这段代码会覆盖 JellySkin 主题默认的登录页背景 */
+#loginPage:after {
+    background-image: url('https://raw.githubusercontent.com/Komeiji-Shiki/GrayWill-ST/main/%E6%9D%82%E9%A1%B9/75578060_p0.jpg') !important;
+}
