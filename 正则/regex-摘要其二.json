@@ -1,0 +1,17 @@
+{
+    "id": "8ecd7fbe-fc84-4dd4-b063-26ee7a1927f8",
+    "scriptName": "摘要其二",
+    "findRegex": "/([\\s\\S]*?<details>\\s*<summary>\\s*摘要\\s*<\\/summary>|<\\/details>[\\s\\S]*?$)/gs",
+    "replaceString": "",
+    "trimStrings": [],
+    "placement": [
+        2
+    ],
+    "disabled": true,
+    "markdownOnly": false,
+    "promptOnly": true,
+    "runOnEdit": true,
+    "substituteRegex": 0,
+    "minDepth": 11,
+    "maxDepth": null
+}

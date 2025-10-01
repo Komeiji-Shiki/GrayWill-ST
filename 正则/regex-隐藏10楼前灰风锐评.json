@@ -1,0 +1,17 @@
+{
+    "id": "4de49abb-e25f-42d4-aa34-73da295366ba",
+    "scriptName": "隐藏10楼前灰风锐评",
+    "findRegex": "/<details>\\s*<summary>\\s*小灰锐评\\s*<\\/summary>[\\s\\S]*?<\\/details>/gsi",
+    "replaceString": "",
+    "trimStrings": [],
+    "placement": [
+        1
+    ],
+    "disabled": true,
+    "markdownOnly": false,
+    "promptOnly": true,
+    "runOnEdit": true,
+    "substituteRegex": 0,
+    "minDepth": 10,
+    "maxDepth": null
+}
