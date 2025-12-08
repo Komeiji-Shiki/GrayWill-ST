@@ -1,6 +1,6 @@
 # GrayWill-ST
 
-我的 SillyTavern 相关内容仓库。
+我的 SillyTavern 相关内容仓库。本项目使用CC BY-SA-NC 协议开源。
 
 这里存放了我个人在使用 SillyTavern 过程中修改和创建的预设，角色卡和配套正则
 
