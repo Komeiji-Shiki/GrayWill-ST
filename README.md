@@ -290,3 +290,11 @@ v0.45.2改
 6.改了改其他地方，懒得说了
 后面忘了
 此次更新不是针对gemini的，也不是针对ds的。不保证比之前好用。感觉不好用就退版本。
+
+
+
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Komeiji-Shiki/GrayWill-ST&type=Date)](https://star-history.com/#Komeiji-Shiki/GrayWill-ST&Date)
+
